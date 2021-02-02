@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: app
+      MYSQL_USER: user
+      MYSQL_PASSWORD: feada149cb8ff54e
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
