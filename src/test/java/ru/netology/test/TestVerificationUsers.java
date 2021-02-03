@@ -1,12 +1,10 @@
 package ru.netology.test;
 
-import com.github.javafaker.Code;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import ru.netology.data.DataHelper;
-import ru.netology.page.DashboardPage;
 import ru.netology.page.LoginPage;
 
 import java.sql.SQLException;
@@ -15,11 +13,10 @@ import static com.codeborne.selenide.Selenide.open;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestVerificationUsers {
-    public DashboardPage dashboardPage;
 
     @BeforeEach
     void setUp() {
-        open("http://0.0.0.0:9999");
+        open("http://localhost:9999");
     }
 
     @Test
@@ -29,7 +26,8 @@ public class TestVerificationUsers {
         val authInfo = DataHelper.getAuthInfo();
         val verificationPage = loginPage.login(authInfo);
         val verificationCode = DataHelper.getVerificationCode(authInfo);
-        dashboardPage = verificationPage.verify(verificationCode);
+        val dashboardPage = verificationPage.verify(verificationCode);
+        dashboardPage.checkPage();
     }
 
     @Test
